@@ -58,5 +58,23 @@ function handleRemoveFromCartClick(event) {
   displayCart();
 }
 
+function handleClearCartClick() {
+  clearCart();
+  displayCart();
+}
+
+function setupEventListeners() {
+  document
+    .getElementById("products")
+    .addEventListener("click", handleAddToCartClick);
+  document
+    .getElementById("cart")
+    .addEventListener("click", handleRemoveFromCartClick);
+  document
+    .getElementById("clear-cart")
+    .addEventListener("click", handleClearCartClick);
+}
+
+setupEventListeners();
 displayProducts();
 displayCart();
