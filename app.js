@@ -1,4 +1,3 @@
-import products from "./product.js";
 import {
   addToCart,
   removeFromCart,
@@ -6,6 +5,7 @@ import {
   calculateTotal,
   getCart,
 } from "./cart.js";
+import products from "./product.js";
 
 const productsDiv = document.getElementById("products");
 const cartDiv = document.getElementById("cart");
