@@ -7,7 +7,7 @@ import {
 } from "./cart.js";
 import products from "./product.js";
 
-const productsDiv = document.getElementById("products");
+const productsDiv = document.getElementById("product-list");
 const cartDiv = document.getElementById("cart");
 const clearCartButton = document.getElementById("clear-cart");
 
