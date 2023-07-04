@@ -43,5 +43,20 @@ function displayCart() {
   cartDiv.appendChild(totalDiv);
 }
 
+function handleAddToCartClick(event) {
+  if (!event.target.matches(".add-to-cart")) return;
+  const productId = Number(event.target.dataset.id);
+  const product = products.find((product) => product.id === productId);
+  addToCart(product);
+  displayCart();
+}
+
+function handleRemoveFromCartClick(event) {
+  if (!event.target.matches(".remove-from-cart")) return;
+  const productId = Number(event.target.dataset.id);
+  removeFromCart(productId);
+  displayCart();
+}
+
 displayProducts();
 displayCart();
