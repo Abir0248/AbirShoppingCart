@@ -7,15 +7,26 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    <style>
+      body {
+        padding: 20px;
+      }
+      .product {
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+        padding: 10px;
+      }
+      .cart-item {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <div class="row">
-        <div id="products" class="col-md-8">
-          <!-- Products will be inserted here -->
-        </div>
+        <div id="products" class="col-md-8"></div>
         <div id="cart" class="col-md-4">
-          <!-- Cart items will be inserted here -->
           <button id="clear-cart" class="btn btn-primary">Clear Cart</button>
         </div>
       </div>
