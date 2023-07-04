@@ -1,14 +1,18 @@
-import { products } from "./product.js";
+import products from "./product.js";
 import {
-  cart,
   addToCart,
   removeFromCart,
   clearCart,
   calculateTotal,
+  getCart,
 } from "./cart.js";
 
+const productsDiv = document.getElementById("products");
+const cartDiv = document.getElementById("cart");
+const clearCartButton = document.getElementById("clear-cart");
+
+// Display products
 function displayProducts() {
-  const productsDiv = document.getElementById("products");
   products.forEach((product) => {
     const productDiv = document.createElement("div");
     productDiv.classList.add("product");
@@ -21,60 +25,62 @@ function displayProducts() {
   });
 }
 
+// Display cart items
 function displayCart() {
-  const cartDiv = document.getElementById("cart");
   cartDiv.innerHTML = "";
-  cart.forEach((item) => {
+  const cartItems = getCart();
+  cartItems.forEach((item) => {
     const cartItemDiv = document.createElement("div");
     cartItemDiv.classList.add("cart-item");
     cartItemDiv.innerHTML = `
-        <h5>${item.product.name}</h5>
-        <p>Quantity: ${item.quantity}</p>
-        <p>Price: $${item.product.price}</p>
-        <p>Total: $${item.product.price * item.quantity}</p>
-        <button class="remove-from-cart btn btn-danger" data-id="${
-          item.product.id
-        }">Remove</button>
-      `;
+      <h5>${item.product.name}</h5>
+      <p>Quantity: ${item.quantity}</p>
+      <p>Price: $${item.product.price}</p>
+      <p>Total: $${item.product.price * item.quantity}</p>
+      <button class="remove-from-cart btn btn-danger" data-id="${
+        item.product.id
+      }">Remove</button>
+    `;
     cartDiv.appendChild(cartItemDiv);
   });
-  const totalDiv = document.createElement("div");
-  totalDiv.innerHTML = `<h4>Total: $${calculateTotal()}</h4>`;
-  cartDiv.appendChild(totalDiv);
+  const totalAmount = document.createElement("p");
+  totalAmount.classList.add("total-amount");
+  totalAmount.innerHTML = `Total: $${calculateTotal()}`;
+  cartDiv.appendChild(totalAmount);
 }
 
+// Add to cart event listener
 function handleAddToCartClick(event) {
-  if (!event.target.matches(".add-to-cart")) return;
-  const productId = Number(event.target.dataset.id);
-  const product = products.find((product) => product.id === productId);
-  addToCart(product);
-  displayCart();
+  if (event.target.classList.contains("add-to-cart")) {
+    const productId = parseInt(event.target.dataset.id);
+    const product = products.find((item) => item.id === productId);
+    addToCart(product);
+    displayCart();
+  }
 }
 
+// Remove from cart event listener
 function handleRemoveFromCartClick(event) {
-  if (!event.target.matches(".remove-from-cart")) return;
-  const productId = Number(event.target.dataset.id);
-  removeFromCart(productId);
-  displayCart();
+  if (event.target.classList.contains("remove-from-cart")) {
+    const productId = parseInt(event.target.dataset.id);
+    removeFromCart(productId);
+    displayCart();
+  }
 }
 
+// Clear cart event listener
 function handleClearCartClick() {
   clearCart();
   displayCart();
 }
 
-function setupEventListeners() {
-  document
-    .getElementById("products")
-    .addEventListener("click", handleAddToCartClick);
-  document
-    .getElementById("cart")
-    .addEventListener("click", handleRemoveFromCartClick);
-  document
-    .getElementById("clear-cart")
-    .addEventListener("click", handleClearCartClick);
+// Initialize the app
+function init() {
+  displayProducts();
+  displayCart();
+  productsDiv.addEventListener("click", handleAddToCartClick);
+  cartDiv.addEventListener("click", handleRemoveFromCartClick);
+  clearCartButton.addEventListener("click", handleClearCartClick);
 }
 
-setupEventListeners();
-displayProducts();
-displayCart();
+init();
